@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendragon RPG Battle Setup</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background: url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat;
+            background-color: #f4e8c1;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            border-bottom: 2px solid #8b0000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        header h1 {
+            font-size: 2.2em;
+            color: #8b0000;
+            margin: 0;
+        }
+        header p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+        .step {
+            display: none;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .step.active {
+            display: block;
+        }
+        h2 {
+            color: #8b0000;
+            font-size: 1.6em;
+            margin-top: 0;
+        }
+        p, ul {
+            margin: 10px 0;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        button {
+            background: #8b0000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #a30000;
+        }
+        .knight-entry, .posture-entry {
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        #encounterResults {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            .step {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Pendragon RPG Battle Setup</h1>
+        <p>Prepare for a battle in the Pendragon RPG, guiding your knights through epic combat. This tool covers setup up to the Encounter phase (Starter Set, Appendix B, pp. 1–4; Gamemaster’s Handbook, pp. 121–129). Purchase rulebooks at <a href="https://www.chaosium.com/pendragon/" target="_blank">Chaosium</a>.</p>
+    </header>
+    <main>
+        <div id="step1" class="step active">
+            <h2>Welcome</h2>
+            <p>Welcome to the Pendragon RPG Battle Setup tool! This guide helps new Gamemasters set up a battle, where knights form a <strong>conroi</strong> (a squadron of about 10 knights) to face foes in exciting <strong>Encounters</strong> within a larger conflict (Starter Set, Appendix B, p. 1; Gamemaster’s Handbook, p. 123).</p>
+            <p>You’ll define your knights, their passions, and battle parameters, preparing for the Encounter phase where foes are chosen (Starter Set, Appendix B, p. 3; Gamemaster’s Handbook, p. 127).</p>
+            <button onclick="nextStep(1)">Begin</button>
+        </div>
+        <div id="step2" class="step">
+            <h2>Step 1: Required Materials</h2>
+            <p>To run a battle, you’ll need the <em>Pendragon Starter Set</em> and <em>Pendragon Gamemaster’s Handbook</em>. These provide rules for knight creation, encounters, and battle mechanics (Starter Set, Appendix B, pp. 1–7; Gamemaster’s Handbook, pp. 121–136).</p>
+            <p>If using an earlier edition, refer to the 6th Edition Conversion Guide. Purchase at <a href="https://www.chaosium.com/pendragon/" target="_blank">Chaosium</a>.</p>
+            <button onclick="prevStep(2)">Back</button>
+            <button onclick="nextStep(2)">Proceed</button>
+        </div>
+        <div id="step3" class="step">
+            <h2>Step 2: Manual Input Mode</h2>
+            <p>This tool uses <strong>Manual Mode</strong>, allowing you to enter knight and battle details directly, simulating the setup of a conroi and its foes without needing pre-created characters (Starter Set, Appendix B, p. 1; Gamemaster’s Handbook, p. 123).</p>
+            <p>In the next step, you’ll define your Player Knights, their passions for morale, and their Battle skill for tactical choices (Starter Set, Appendix B, pp. 2–3; Gamemaster’s Handbook, pp. 125–127).</p>
+            <button onclick="prevStep(3)">Back</button>
+            <button onclick="nextStep(3)">Proceed</button>
+        </div>
+        <div id="step4" class="step">
+            <h2>Step 3: Player Knights</h2>
+            <p>Enter details for each Player Knight in your conroi. The conroi’s <strong>Morale</strong> is based on their shared passions (e.g., Honor, Loyalty), driving them to endure battle (Starter Set, Appendix B, p. 2; Gamemaster’s Handbook, p. 125).</p>
+            <p>Provide each knight’s name, passion value (1–20), passion name, passion court, and Battle skill. If all passions are from the same court (e.g., Fidelitas), you’ll gain a +5 Morale bonus (Starter Set, Appendix B, p. 2; Gamemaster’s Handbook, p. 125). Battle skill helps choose encounters (Starter Set, Appendix B, p. 3; Gamemaster’s Handbook, p. 127).</p>
+            <div id="knightInputs">
+                <div class="knight-entry">
+                    <p>Name: <input type="text" name="name" value="Knight 1"></p>
+                    <p>Passion Value (1–20): <input type="number" name="passion" min="1" max="20" value="10"></p>
+                    <p>Passion Name: <input type="text" name="passionName" value="Honor"></p>
+                    <p>Passion Court: <select name="passionCourt">
+                        <option value="Fidelitas">Fidelitas (Duty, Fealty, Loyalty)</option>
+                        <option value="Fervor">Fervor (Hate, Love)</option>
+                        <option value="Adoratio">Adoratio (Adoration, Devotion)</option>
+                        <option value="Civilitas">Civilitas (Chivalry, Hospitality)</option>
+                        <option value="Honour">Honour (Honor)</option>
+                        <option value="Unknown">Unknown</option>
+                    </select></p>
+                    <p>Battle Skill (1–20): <input type="number" name="battle" min="1" max="20" value="10"></p>
+                </div>
+            </div>
+            <button type="button" onclick="addKnightInput()">Add Another Knight</button>
+            <button onclick="prevStep(4)">Back</button>
+            <button onclick="nextStep(4)">Confirm</button>
+        </div>
+        <div id="step5" class="step">
+            <h2>Step 4: Morale Calculation</h2>
+            <p>The conroi’s <strong>Morale</strong> is the average of your knights’ passion values, representing their collective drive (Starter Set, Appendix B, p. 2; Gamemaster’s Handbook, p. 125). If all passions are from the same court, a +5 bonus applies, boosting their resolve (Starter Set, Appendix B, p. 2; Gamemaster’s Handbook, p. 125).</p>
+            <p>Your morale will be calculated automatically based on the knights you entered. Review the summary below:</p>
+            <div id="moraleSummary"></div>
+            <button onclick="prevStep(5)">Back</button>
+            <button onclick="nextStep(5)">Proceed</button>
+        </div>
+        <div id="step6" class="step">
+            <h2>Step 5: Battle Parameters</h2>
+            <p>Define the battle’s details, including its name, enemy army, size, intensity, and duration. <strong>Intensity</strong> (1–20) reflects the battle’s chaos, affecting encounter choices, while <strong>Max Turns</strong> sets its length (Starter Set, Appendix B, p. 2; Gamemaster’s Handbook, pp. 122, 126).</p>
+            <p>Enter the commander’s Battle skill if not a Player Knight. See Table 6.1: Battle Size (Gamemaster’s Handbook, p. 122).</p>
+            <p>Battle Name: <input type="text" id="battleName" value="Custom Battle"></p>
+            <p>Army Type: <input type="text" id="armyType" value="Enemy Forces"></p>
+            <p>Battle Size: <input type="text" id="battleSize" value="Medium Battle"></p>
+            <p>Intensity (1–20): <input type="number" id="intensity" min="1" max="20" value="10"></p>
+            <p>Max Turns: <input type="number" id="maxTurns" min="1" value="5"></p>
+            <p>Conroi Commander's Battle Skill (1–20): <input type="number" id="commanderBattleSkill" min="1" max="20" value="10"></p>
+            <button onclick="prevStep(6)">Back</button>
+            <button onclick="nextStep(6)">Confirm</button>
+        </div>
+        <div id="step7" class="step">
+            <h2>Step 6: Battle Summary</h2>
+            <p>Your battle is set up! The summary has been added to the Battle Report below, ready for the <strong>Encounter phase</strong>, where you’ll choose foes to fight (Starter Set, Appendix B, pp. 2–3; Gamemaster’s Handbook, pp. 126–127).</p>
+            <button onclick="prevStep(7)">Back</button>
+            <button onclick="nextStep(7)">Proceed to Turn 1</button>
+        </div>
+        <div id="step8" class="step">
+            <h2>Step 7: Encounter (Turn <span id="currentTurnDisplay"></span>)</h2>
+            <p>Enter details for the Encounter in Turn <span id="currentTurnDisplay2"></span> (Starter Set, Appendix B, pp. 2–3; Gamemaster’s Handbook, pp. 126–127).</p>
+            <p>Use values from Encounter cards in the Starter Set (Appendix B, pp. 1–3), Foe encounters in the Gamemaster’s Handbook (p. 137), or KV tables in the Gamemaster’s Handbook (p. 133).</p>
+            <p>Encounter Name: <input type="text" id="encounterName" value="Enemy Encounter"></p>
+            <p>Knight Value (KV): <input type="number" id="kv" min="0" step="0.1" value="1"></p>
+            <p>Minimum Morale: <input type="number" id="minMorale" min="0" value="10"></p>
+            <p>Morale Loss (dice formula, e.g., 1d6): <input type="text" id="moraleLoss" value="1d6"></p>
+            <p>Glory Award per Foe: <input type="number" id="gloryAward" min="0" value="25"></p>
+            <button onclick="prevStep(8)">Back</button>
+            <button onclick="nextStep(8)">Confirm</button>
+        </div>
+        <div id="step9" class="step">
+            <h2>Step 8: Intensity and Battle Rolls</h2>
+            <p>Roll to determine if your selected Encounter is used in Turn <span id="currentTurnDisplay3"></span> (Starter Set, Appendix B, pp. 2–3; Gamemaster’s Handbook, pp. 126–127).</p>
+            <p><strong>Intensity Roll (1d20 vs Intensity):</strong> <button onclick="rollIntensity()">Roll</button> <span id="intensityResult"></span></p>
+            <p id="battleRollSection" style="display: none;"><strong>Battle Roll (1d20 vs Battle Skill):</strong> <button onclick="rollBattle()">Roll</button> <span id="battleResult"></span></p>
+            <div id="opportunityChoice" style="display: none;">
+                <p>Battle Skill roll critically succeeded! You may keep the current Encounter or choose an Opportunity (Gamemaster’s Handbook, p. 127).</p>
+                <p><strong>Current Encounter:</strong> <span id="currentEncounterDetails"></span></p>
+                <p><input type="checkbox" id="changeEncounter"> Change to an Opportunity Encounter (e.g., weaker foe)</p>
+                <div id="newEncounterDetails" style="display: none;">
+                    <p>New Encounter Name: <input type="text" id="newEncounterName" value="Opportunity Encounter"></p>
+                    <p>New Knight Value (KV): <input type="number" id="newKv" min="0" step="0.1" value="0.5"></p>
+                    <p>New Minimum Morale: <input type="number" id="newMinMorale" min="0" value="5"></p>
+                    <p>New Morale Loss (dice formula, e.g., 1d6): <input type="text" id="newMoraleLoss" value="1d3"></p>
+                    <p>New Glory Award per Foe: <input type="number" id="newGloryAward" min="0" value="15"></p>
+                </div>
+            </div>
+            <div id="harderEncounterChoice" style="display: none;">
+                <p>Battle Skill roll failed. You may select a new, potentially harder Encounter (Gamemaster’s Handbook, p. 127).</p>
+                <p><strong>Current Encounter:</strong> <span id="currentEncounterDetails2"></span></p>
+                <p><input type="checkbox" id="changeEncounterHarder"> Change to a new Encounter</p>
+                <div id="newEncounterDetailsHarder" style="display: none;">
+                    <p>New Encounter Name: <input type="text" id="newEncounterNameHarder" value="Harder Encounter"></p>
+                    <p>New Knight Value (KV): <input type="number" id="newKvHarder" min="0" step="0.1" value="2"></p>
+                    <p>New Minimum Morale: <input type="number" id="newMinMoraleHarder" min="0" value="15"></p>
+                    <p>New Morale Loss (dice formula, e.g., 1d6): <input type="text" id="newMoraleLossHarder" value="2d6"></p>
+                    <p>New Glory Award per Foe: <input type="number" id="newGloryAwardHarder" min="0" value="50"></p>
+                </div>
+            </div>
+            <button onclick="prevStep(9)">Back</button>
+            <button id="proceedRollButton" onclick="nextStep(9)" style="display: none;">Proceed</button>
+        </div>
+        <div id="step10" class="step">
+            <h2>Step 9: Morale Check</h2>
+            <p>Checking conroi Morale against the Encounter's Minimum Morale for Turn <span id="currentTurnDisplay4"></span> (Starter Set, Appendix B, p. 4; Gamemaster’s Handbook, p. 128).</p>
+            <p><strong>Conroi Morale:</strong> <span id="currentMorale"></span></p>
+            <p><strong>Minimum Morale Required:</strong> <span id="minMoraleRequired"></span></p>
+            <p><strong>Result:</strong> <span id="moraleCheckResult"></span></p>
+            <div id="retireDetails" style="display: none;">
+                <p><strong>Morale Restored:</strong> <span id="moraleRestored"></span></p>
+            </div>
+            <button onclick="prevStep(10)">Back</button>
+            <button id="proceedMoraleButton" onclick="proceedAfterMoraleCheck()">Proceed</button>
+        </div>
+        <div id="step11" class="step">
+            <h2>Step 10: Select Postures</h2>
+            <p>Choose a Posture for each knight in Turn <span id="currentTurnDisplay5"></span>. Postures determine the number of Combat Rounds (Starter Set, Appendix B, p. 4; Gamemaster’s Handbook, p. 128).</p>
+            <div id="postureInputs"></div>
+            <button onclick="prevStep(11)">Back</button>
+            <button onclick="nextStep(11)">Confirm</button>
+        </div>
+        <div id="step12" class="step">
+            <h2>Step 11: Combat Results</h2>
+            <p>Enter the number of foes defeated by each knight in Turn <span id="currentTurnDisplay6"></span> (Starter Set, Appendix B, p. 5; Gamemaster’s Handbook, p. 129).</p>
+            <div id="combatInputs"></div>
+            <button onclick="prevStep(12)">Back</button>
+            <button onclick="nextStep(12)">Confirm</button>
+        </div>
+        <div id="step13" class="step">
+            <h2>Step 12: Turn Summary</h2>
+            <p>Results for Turn <span id="currentTurnDisplay7"></span> are below. Turns Remaining: <span id="turnsRemaining"></span> (Starter Set, Appendix B, p. 7; Gamemaster’s Handbook, p. 133).</p>
+            <div id="turnSummary"></div>
+            <button onclick="prevStep(13)">Back</button>
+            <button id="nextTurnButton">Proceed to Next Turn</button>
+            <button id="endBattleButton" onclick="endBattle()" style="display: none;">End Battle</button>
+        </div>
+        <div id="encounterResults">
+            <h2>Battle Report</h2>
+            <p>Battle setup and encounter results will appear here as you progress through turns.</p>
+        </div>
+    </main>
+    <footer>
+        <p>This fan-made tool is based on Pendragon RPG rules by Chaosium. See <em>Starter Set</em> and <em>Gamemaster’s Handbook</em> for full details. Not affiliated with Chaosium.</p>
+        <button onclick="resetBattle()">Reset Battle</button>
+    </footer>
+</body>
+</html>
+<script>
+// Battle state object to store user inputs and game progress
+let battleState = {
+    playerKnights: [],
+    morale: 0,
+    passionBonus: 0,
+    maxMorale: 0,
+    battleName: '',
+    armyType: '',
+    battleSize: '',
+    intensity: 10,
+    maxTurns: 5,
+    commanderBattleSkill: 10,
+    currentTurn: 1,
+    encounters: [],
+    gloryHistory: {},
+    firstTurnParticipants: [],
+    postures: [],
+    combatRounds: 0,
+    intensityRoll: null,
+    battleRoll: null,
+    retiredLastTurn: false // Track if the last turn ended in retirement
+};
+
+// Step navigation
+function nextStep(currentStep) {
+    try {
+        console.log(`Entering nextStep for step ${currentStep}`);
+        // Validate and save data based on the current step
+        if (currentStep === 4) {
+            if (!validateKnights()) return;
+            saveKnights();
+        } else if (currentStep === 6) {
+            if (!validateBattleParameters()) return;
+            saveBattleParameters();
+            displayBattleSummary();
+        } else if (currentStep === 8) {
+            if (!validateEncounter()) return;
+            saveEncounter();
+            displayEncounterDetails();
+        } else if (currentStep === 9) {
+            if (battleState.intensityRoll === null || (battleState.intensityRoll > battleState.intensity && battleState.battleRoll === null)) {
+                alert('Please complete the Intensity and Battle rolls before proceeding.');
+                return;
+            }
+            finalizeEncounterSelection();
+        } else if (currentStep === 11) {
+            if (!validatePostures()) return;
+            savePostures();
+        } else if (currentStep === 12) {
+            if (!validateCombatResults()) return;
+            calculateCombatResults();
+        } else if (currentStep === 13) {
+            proceedToNextTurn();
+        }
+
+        // Hide current step, show next
+        console.log(`Hiding step${currentStep}, showing step${currentStep + 1}`);
+        document.getElementById(`step${currentStep}`).style.display = 'none';
+        let nextStepToShow = currentStep + 1;
+
+        // If the last turn ended in retirement and we're at Step 7, skip to Step 8
+        if (currentStep === 7 && battleState.retiredLastTurn) {
+            nextStepToShow = 8;
+            battleState.retiredLastTurn = false; // Reset the flag
+        }
+
+        const nextStepElement = document.getElementById(`step${nextStepToShow}`);
+        if (nextStepElement) {
+            nextStepElement.style.display = 'block';
+        } else {
+            console.error(`Step element step${nextStepToShow} not found.`);
+            throw new Error(`Cannot navigate to step${nextStepToShow}: element not found.`);
+        }
+
+        // Step-specific actions
+        if (currentStep === 4) {
+            calculateMorale();
+            displayMoraleSummary();
+        } else if (currentStep === 7) {
+            updateTurnDisplay();
+        } else if (currentStep === 9) {
+            checkMorale();
+            resetRollState();
+        } else if (currentStep === 10) {
+            displayPostureInputs();
+        } else if (currentStep === 11) {
+            displayCombatInputs();
+        }
+    } catch (err) {
+        console.error('Error in nextStep:', err);
+        alert('An error occurred. Please check your inputs and try again.');
+    }
+}
+
+// Navigate to the previous step
+function prevStep(currentStep) {
+    try {
+        console.log(`Entering prevStep from step ${currentStep}`);
+        document.getElementById(`step${currentStep}`).style.display = 'none';
+        let prevStepToShow = currentStep - 1;
+
+        // If coming from Step 13 and the last turn ended in retirement, skip back to Step 7
+        if (currentStep === 13 && battleState.retiredLastTurn) {
+            prevStepToShow = 7;
+            battleState.retiredLastTurn = false; // Reset the flag
+        }
+
+        const prevStepElement = document.getElementById(`step${prevStepToShow}`);
+        if (prevStepElement) {
+            prevStepElement.style.display = 'block';
+        } else {
+            console.error(`Step element step${prevStepToShow} not found.`);
+            throw new Error(`Cannot navigate to step${prevStepToShow}: element not found.`);
+        }
+
+        if (currentStep === 9) {
+            resetRollState();
+        }
+        if (currentStep === 9 || (currentStep === 13 && prevStepToShow === 7)) {
+            displayEncounterDetails();
+        }
+    } catch (err) {
+        console.error('Error in prevStep:', err);
+        alert('An error occurred while navigating back.');
+    }
+}
+
+// Reset the battle state and return to Step 1
+function resetBattle() {
+    try {
+        battleState = {
+            playerKnights: [],
+            morale: 0,
+            passionBonus: 0,
+            maxMorale: 0,
+            battleName: '',
+            armyType: '',
+            battleSize: '',
+            intensity: 10,
+            maxTurns: 5,
+            commanderBattleSkill: 10,
+            currentTurn: 1,
+            encounters: [],
+            gloryHistory: {},
+            firstTurnParticipants: [],
+            postures: [],
+            combatRounds: 0,
+            intensityRoll: null,
+            battleRoll: null,
+            retiredLastTurn: false
+        };
+        document.getElementById('knightInputs').innerHTML = `
+            <div class="knight-entry">
+                <p>Name: <input type="text" name="name" value="Knight 1"></p>
+                <p>Passion Value (1–20): <input type="number" name="passion" min="1" max="20" value="10"></p>
+                <p>Passion Name: <input type="text" name="passionName" value="Honor"></p>
+                <p>Passion Court: <select name="passionCourt">
+                    <option value="Fidelitas">Fidelitas (Duty, Fealty, Loyalty)</option>
+                    <option value="Fervor">Fervor (Hate, Love)</option>
+                    <option value="Adoratio">Adoratio (Adoration, Devotion)</option>
+                    <option value="Civilitas">Civilitas (Chivalry, Hospitality)</option>
+                    <option value="Honour">Honour (Honor)</option>
+                    <option value="Unknown">Unknown</option>
+                </select></p>
+                <p>Battle Skill (1–20): <input type="number" name="battle" min="1" max="20" value="10"></p>
+            </div>
+        `;
+        document.getElementById('encounterResults').innerHTML = '<h2>Battle Report</h2><p>Battle setup and encounter results will appear here as you progress through turns.</p>';
+        document.querySelectorAll('.step').forEach(step => step.style.display = 'none');
+        document.getElementById('step1').style.display = 'block';
+    } catch (err) {
+        console.error('Error in resetBattle:', err);
+        alert('An error occurred while resetting the battle.');
+    }
+}
+
+// Add a new knight input form
+function addKnightInput() {
+    const container = document.getElementById('knightInputs');
+    const index = container.children.length + 1;
+    const div = document.createElement('div');
+    div.className = 'knight-entry';
+    div.innerHTML = `
+        <hr>
+        <p>Name: <input type="text" name="name" value="Knight ${index}"></p>
+        <p>Passion Value (1–20): <input type="number" name="passion" min="1" max="20" value="10"></p>
+        <p>Passion Name: <input type="text" name="passionName" value="Honor"></p>
+        <p>Passion Court: <select name="passionCourt">
+            <option value="Fidelitas">Fidelitas (Duty, Fealty, Loyalty)</option>
+            <option value="Fervor">Fervor (Hate, Love)</option>
+            <option value="Adoratio">Adoratio (Adoration, Devotion)</option>
+            <option value="Civilitas">Civilitas (Chivalry, Hospitality)</option>
+            <option value="Honour">Honour (Honor)</option>
+            <option value="Unknown">Unknown</option>
+        </select></p>
+        <p>Battle Skill (1–20): <input type="number" name="battle" min="1" max="20" value="10"></p>
+    `;
+    container.appendChild(div);
+}
+
+// Validate knight inputs
+function validateKnights() {
+    const entries = document.querySelectorAll('.knight-entry');
+    if (entries.length === 0) {
+        alert('Please add at least one Player Knight to proceed.');
+        return false;
+    }
+    for (let entry of entries) {
+        const nameInput = entry.querySelector('input[name="name"]');
+        const passionInput = entry.querySelector('input[name="passion"]');
+        const passionNameInput = entry.querySelector('input[name="passionName"]');
+        const passionCourtSelect = entry.querySelector('select[name="passionCourt"]');
+        const battleInput = entry.querySelector('input[name="battle"]');
+
+        if (!nameInput || !passionInput || !passionNameInput || !passionCourtSelect || !battleInput) {
+            alert('One or more input fields are missing for a knight. Please ensure all fields are present.');
+            return false;
+        }
+
+        const name = nameInput.value.trim();
+        const passionValue = parseInt(passionInput.value);
+        const passionName = passionNameInput.value.trim();
+        const passionCourt = passionCourtSelect.value;
+        const battleSkill = parseInt(battleInput.value);
+
+        if (!name) {
+            alert('Please enter a name for each knight.');
+            return false;
+        }
+        if (isNaN(passionValue) || passionValue < 1 || passionValue > 20) {
+            alert(`Passion Value for ${name} must be between 1 and 20 (Starter Set, Appendix B, p. 2).`);
+            return false;
+        }
+        if (!passionName) {
+            alert(`Please enter a Passion Name for ${name} (e.g., Honor, Loyalty).`);
+            return false;
+        }
+        if (!passionCourt) {
+            alert(`Please select a Passion Court for ${name}.`);
+            return false;
+        }
+        if (isNaN(battleSkill) || battleSkill < 1 || battleSkill > 20) {
+            alert(`Battle Skill for ${name} must be between 1 and 20 (Starter Set, Appendix B, p. 3).`);
+            return false;
+        }
+    }
+    return true;
+}
+
+// Save knight inputs to battleState
+function saveKnights() {
+    const entries = document.querySelectorAll('.knight-entry');
+    battleState.playerKnights = Array.from(entries).map(entry => {
+        const nameInput = entry.querySelector('input[name="name"]');
+        const passionInput = entry.querySelector('input[name="passion"]');
+        const passionNameInput = entry.querySelector('input[name="passionName"]');
+        const passionCourtSelect = entry.querySelector('select[name="passionCourt"]');
+        const battleInput = entry.querySelector('input[name="battle"]');
+        return {
+            name: nameInput ? nameInput.value || `Knight ${Array.from(entries).indexOf(entry) + 1}` : `Knight ${Array.from(entries).indexOf(entry) + 1}`,
+            passionValue: passionInput ? parseInt(passionInput.value) || 10 : 10,
+            passionName: passionNameInput ? passionNameInput.value || 'Honor' : 'Honor',
+            passionCourt: passionCourtSelect ? passionCourtSelect.value || 'Unknown' : 'Unknown',
+            skills: { battle: battleInput ? parseInt(battleInput.value) || 10 : 10 }
+        };
+    });
+    battleState.gloryHistory = {};
+    battleState.firstTurnParticipants = [];
+    battleState.playerKnights.forEach(knight => {
+        battleState.gloryHistory[knight.name] = [];
+    });
+}
+
+// Calculate initial conroi morale
+function calculateMorale() {
+    const passionValues = battleState.playerKnights.map(k => k.passionValue);
+    const passionCourts = battleState.playerKnights.map(k => k.passionCourt);
+    const sameCourt = passionCourts.every((court, i, arr) => court === arr[0] && court !== 'Unknown');
+    const averageMorale = passionValues.reduce((sum, val) => sum + val, 0) / passionValues.length;
+    battleState.morale = sameCourt ? averageMorale + 5 : averageMorale;
+    battleState.passionBonus = sameCourt ? 5 : 0;
+    battleState.maxMorale = battleState.morale;
+}
+
+// Display morale summary in Step 4
+function displayMoraleSummary() {
+    const knightList = battleState.playerKnights.map(k => 
+        `<li>${k.name}: ${k.passionName} (${k.passionCourt}, Value: ${k.passionValue})</li>`
+    ).join('');
+    document.getElementById('moraleSummary').innerHTML = `
+        <p><strong>Knights:</strong></p>
+        <ul>${knightList}</ul>
+        <p><strong>Morale:</strong> ${battleState.morale.toFixed(2)}${battleState.passionBonus ? ' (includes +5 Passion Court bonus)' : ''}</p>
+    `;
+}
+
+// Validate battle parameters
+function validateBattleParameters() {
+    const intensity = parseInt(document.getElementById('intensity').value);
+    const maxTurns = parseInt(document.getElementById('maxTurns').value);
+    const commanderBattleSkill = parseInt(document.getElementById('commanderBattleSkill').value);
+    if (!document.getElementById('battleName').value.trim()) {
+        alert('Please enter a Battle Name (e.g., Battle of Badon).');
+        return false;
+    }
+    if (isNaN(intensity) || intensity < 1 || intensity > 20) {
+        alert('Intensity must be between 1 and 20 (Starter Set, Appendix B, p. 2).');
+        return false;
+    }
+    if (isNaN(maxTurns) || maxTurns < 1) {
+        alert('Max Turns must be at least 1 (Starter Set, Appendix B, p. 2).');
+        return false;
+    }
+    if (isNaN(commanderBattleSkill) || commanderBattleSkill < 1 || commanderBattleSkill > 20) {
+        alert('Commander Battle Skill must be between 1 and 20 (Starter Set, Appendix B, p. 3).');
+        return false;
+    }
+    return true;
+}
+
+// Save battle parameters to battleState
+function saveBattleParameters() {
+    battleState.battleName = document.getElementById('battleName').value || 'Custom Battle';
+    battleState.armyType = document.getElementById('armyType').value || 'Enemy Forces';
+    battleState.battleSize = document.getElementById('battleSize').value || 'Medium Battle';
+    battleState.intensity = parseInt(document.getElementById('intensity').value) || 10;
+    battleState.maxTurns = parseInt(document.getElementById('maxTurns').value) || 5;
+    battleState.commanderBattleSkill = parseInt(document.getElementById('commanderBattleSkill').value) || 10;
+    battleState.currentTurn = 1;
+    battleState.retiredLastTurn = false;
+}
+
+// Display the battle summary in the Battle Report section
+function displayBattleSummary() {
+    const playerNames = battleState.playerKnights.map(k => k.name).join(', ') || 'None';
+    const passionDetails = battleState.playerKnights
+        .map(k => `${k.name}: ${k.passionName} (${k.passionCourt})`)
+        .join(', ');
+    const summaryContent = `
+        <h2>Battle Setup</h2>
+        <p><strong>Battle:</strong> ${battleState.battleName}</p>
+        <p><strong>Army Type:</strong> ${battleState.armyType}</p>
+        <p><strong>Battle Size:</strong> ${battleState.battleSize}</p>
+        <p><strong>Players:</strong> ${playerNames}</p>
+        <p><strong>Selected Passions:</strong> ${passionDetails}</p>
+        <p><strong>Conroi Morale:</strong> <span id="currentMoraleDisplay">${battleState.morale.toFixed(2)}</span>${battleState.passionBonus ? ' (includes +5 Passion Court bonus)' : ''}</p>
+        <p><strong>Battle Intensity:</strong> ${battleState.intensity}</p>
+        <p><strong>Total Battle Turns:</strong> ${battleState.maxTurns}</p>
+        <p><strong>Commander Battle Skill:</strong> ${battleState.commanderBattleSkill}</p>
+    `;
+    document.getElementById('encounterResults').innerHTML = `<h2>Battle Report</h2>${summaryContent}`;
+}
+
+// Update turn displays across steps
+function updateTurnDisplay() {
+    try {
+        const displays = document.querySelectorAll('#currentTurnDisplay, #currentTurnDisplay2, #currentTurnDisplay3, #currentTurnDisplay4, #currentTurnDisplay5, #currentTurnDisplay6, #currentTurnDisplay7');
+        displays.forEach(display => {
+            if (display) {
+                display.textContent = battleState.currentTurn;
+            } else {
+                console.warn(`Turn display element not found: ${display}`);
+            }
+        });
+    } catch (err) {
+        console.error('Error in updateTurnDisplay:', err);
+        throw err;
+    }
+}
+
+// Validate encounter inputs
+function validateEncounter() {
+    const kv = parseFloat(document.getElementById('kv').value);
+    const minMorale = parseInt(document.getElementById('minMorale').value);
+    const moraleLoss = document.getElementById('moraleLoss').value.trim();
+    const gloryAward = parseInt(document.getElementById('gloryAward').value);
+    if (!document.getElementById('encounterName').value.trim()) {
+        alert('Please enter an Encounter Name.');
+        return false;
+    }
+    if (isNaN(kv) || kv < 0) {
+        alert('Knight Value (KV) must be a non-negative number (Gamemaster\'s Handbook, p. 133).');
+        return false;
+    }
+    if (isNaN(minMorale) || minMorale < 0) {
+        alert('Minimum Morale must be a non-negative number (Starter Set, Appendix B, p. 3).');
+        return false;
+    }
+    if (!moraleLoss.match(/^\d+d\d+(\+\d+)?$/)) {
+        alert('Morale Loss must be a valid dice formula (e.g., 1d6, 1d6+1) (Starter Set, Appendix B, p. 3).');
+        return false;
+    }
+    if (isNaN(gloryAward) || gloryAward < 0) {
+        alert('Glory Award per Foe must be a non-negative number (Starter Set, Appendix B, p. 3).');
+        return false;
+    }
+    return true;
+}
+
+// Save encounter details to battleState
+function saveEncounter() {
+    const encounter = {
+        name: document.getElementById('encounterName').value || 'Enemy Encounter',
+        kv: parseFloat(document.getElementById('kv').value) || 1,
+        minMorale: parseInt(document.getElementById('minMorale').value) || 10,
+        moraleLoss: document.getElementById('moraleLoss').value || '1d6',
+        gloryAward: parseInt(document.getElementById('gloryAward').value) || 25
+    };
+    battleState.encounters[battleState.currentTurn - 1] = encounter;
+}
+
+// Display or update encounter details in the Battle Report
+function displayEncounterDetails() {
+    const encounter = battleState.encounters[battleState.currentTurn - 1];
+    const isFirstTurn = battleState.currentTurn === 1;
+    const mountedChargeReminder = isFirstTurn
+        ? `<p><strong>Mounted Charge Reminder:</strong> See Mounted Charge rules (Starter Set, Appendix B, p. 3; Gamemaster's Handbook, p. 127).</p>`
+        : `<p><strong>Mounted Charge Reminder:</strong> See Mounted Charge rules (Starter Set, Appendix B, p. 3; Gamemaster's Handbook, p. 127).</p>`;
+    const missileReminder = `<p><strong>Missile Weapons Reminder:</strong> See Encountering Missile Weapons rules (Starter Set, Appendix B, p. 5; Gamemaster's Handbook, p. 130).</p>`;
+    const squireReminder = `<p><strong>Squire Skill Rolls:</strong> See Squire Skill Roll rules (Starter Set, Appendix B, pp. 5-6).</p>`;
+    const content = `
+        <div id="encounterTurn${battleState.currentTurn}">
+            <h2>Battle Turn ${battleState.currentTurn} - Encounter</h2>
+            <p><strong>Battle:</strong> ${battleState.battleName}</p>
+            <p><strong>Army:</strong> ${battleState.armyType}</p>
+            <p><strong>Foe:</strong> ${encounter.name}</p>
+            <p><strong>Knight Value (KV):</strong> ${encounter.kv}</p>
+            <p><strong>Glory per Foe:</strong> ${encounter.gloryAward}</p>
+            <p><strong>Combat Rounds:</strong> <span id="combatRoundsDisplay${battleState.currentTurn}">To be determined after posture selection.</span></p>
+            <p><strong>Conroi Morale:</strong> ${battleState.morale.toFixed(2)}</p>
+            <p><strong>Postures:</strong> <span id="posturesDisplay${battleState.currentTurn}">To be determined after posture selection.</span></p>
+            ${mountedChargeReminder}
+            ${missileReminder}
+            ${squireReminder}
+        </div>
+    `;
+    const existingEntry = document.getElementById(`encounterTurn${battleState.currentTurn}`);
+    if (existingEntry) {
+        existingEntry.outerHTML = content;
+    } else {
+        appendEncounterResult(content);
+    }
+}
+
+// Handle Intensity roll
+function rollIntensity() {
+    battleState.intensityRoll = Math.floor(Math.random() * 20) + 1; // Simulate 1d20
+    let result = `Rolled ${battleState.intensityRoll}. `;
+    if (battleState.intensityRoll <= battleState.intensity) {
+        result += `Success (${battleState.intensityRoll} ≤ ${battleState.intensity}). Using the selected Encounter.`;
+        document.getElementById('battleRollSection').style.display = 'none';
+        document.getElementById('proceedRollButton').style.display = 'block';
+    } else {
+        result += `Failure (${battleState.intensityRoll} > ${battleState.intensity}). Roll Battle Skill to confirm or change the Encounter.`;
+        document.getElementById('battleRollSection').style.display = 'block';
+        document.getElementById('proceedRollButton').style.display = 'none';
+    }
+    document.getElementById('intensityResult').textContent = result;
+}
+
+// Handle Battle roll
+function rollBattle() {
+    const battleSkill = battleState.playerKnights[0].skills.battle || battleState.commanderBattleSkill;
+    battleState.battleRoll = Math.floor(Math.random() * 20) + 1; // Simulate 1d20
+    let result = `Rolled ${battleState.battleRoll}. `;
+    let showOpportunity = false;
+    let showHarder = false;
+
+    if (battleState.battleRoll === battleSkill) { // Critical success
+        result += `Critical Success (${battleState.battleRoll} = ${battleSkill}). You may choose an Opportunity Encounter.`;
+        showOpportunity = true;
+    } else if (battleState.battleRoll <= battleSkill) {
+        result += `Success (${battleState.battleRoll} ≤ ${battleSkill}). You may proceed with the selected Encounter.`;
+    } else {
+        result += `Failure (${battleState.battleRoll} > ${battleSkill}). You may select a new, potentially harder Encounter.`;
+        showHarder = true;
+    }
+
+    document.getElementById('battleResult').textContent = result;
+    document.getElementById('opportunityChoice').style.display = showOpportunity ? 'block' : 'none';
+    document.getElementById('harderEncounterChoice').style.display = showHarder ? 'block' : 'none';
+    document.getElementById('proceedRollButton').style.display = 'block';
+}
+
+// Finalize encounter selection after rolls
+function finalizeEncounterSelection() {
+    const encounter = battleState.encounters[battleState.currentTurn - 1];
+    if (battleState.intensityRoll > battleState.intensity) {
+        const battleSkill = battleState.playerKnights[0].skills.battle || battleState.commanderBattleSkill;
+        if (battleState.battleRoll === battleSkill && document.getElementById('changeEncounter').checked) {
+            battleState.encounters[battleState.currentTurn - 1] = {
+                name: document.getElementById('newEncounterName').value || 'Opportunity Encounter',
+                kv: parseFloat(document.getElementById('newKv').value) || 0.5,
+                minMorale: parseInt(document.getElementById('newMinMorale').value) || 5,
+                moraleLoss: document.getElementById('newMoraleLoss').value || '1d3',
+                gloryAward: parseInt(document.getElementById('newGloryAward').value) || 15
+            };
+        } else if (battleState.battleRoll > battleSkill && document.getElementById('changeEncounterHarder').checked) {
+            battleState.encounters[battleState.currentTurn - 1] = {
+                name: document.getElementById('newEncounterNameHarder').value || 'Harder Encounter',
+                kv: parseFloat(document.getElementById('newKvHarder').value) || 2,
+                minMorale: parseInt(document.getElementById('newMinMoraleHarder').value) || 15,
+                moraleLoss: document.getElementById('newMoraleLossHarder').value || '2d6',
+                gloryAward: parseInt(document.getElementById('newGloryAwardHarder').value) || 50
+            };
+        }
+        displayEncounterDetails();
+    }
+}
+
+// Reset roll state for the next turn
+function resetRollState() {
+    battleState.intensityRoll = null;
+    battleState.battleRoll = null;
+    document.getElementById('intensityResult').textContent = '';
+    document.getElementById('battleResult').textContent = '';
+    document.getElementById('battleRollSection').style.display = 'none';
+    document.getElementById('opportunityChoice').style.display = 'none';
+    document.getElementById('harderEncounterChoice').style.display = 'none';
+    document.getElementById('proceedRollButton').style.display = 'none';
+}
+
+// Check morale against the encounter's minimum morale
+function checkMorale() {
+    const encounter = battleState.encounters[battleState.currentTurn - 1];
+    document.getElementById('currentMorale').textContent = battleState.morale.toFixed(2);
+    document.getElementById('minMoraleRequired').textContent = encounter.minMorale;
+
+    if (battleState.morale < encounter.minMorale) {
+        const moraleRestore = Math.floor(Math.random() * 6) + 1; // Simulate 1d6
+        battleState.morale += moraleRestore;
+        if (battleState.morale > battleState.maxMorale) battleState.morale = battleState.maxMorale;
+        document.getElementById('moraleCheckResult').textContent = `Morale too low (${(battleState.morale - moraleRestore).toFixed(2)} < ${encounter.minMorale}). Conroi retires to the rear.`;
+        document.getElementById('moraleRestored').textContent = `+${moraleRestore} (now ${battleState.morale.toFixed(2)})`;
+        document.getElementById('retireDetails').style.display = 'block';
+        document.getElementById('currentMoraleDisplay').textContent = battleState.morale.toFixed(2);
+        appendEncounterResult(`
+            <h3>Turn ${battleState.currentTurn} - Retired</h3>
+            <p><strong>Reason:</strong> Morale (${(battleState.morale - moraleRestore).toFixed(2)}) too low (requires ${encounter.minMorale}).</p>
+            <p><strong>Morale Restored:</strong> +${moraleRestore} (now ${battleState.morale.toFixed(2)})</p>
+            <p>Conroi retires to the rear (Starter Set, Appendix B, p. 6; Gamemaster's Handbook, p. 132).</p>
+        `);
+        document.getElementById('proceedMoraleButton').textContent = battleState.currentTurn < battleState.maxTurns ? 'Proceed to Next Turn' : 'End Battle';
+        battleState.retiredLastTurn = true; // Set flag to indicate retirement
+    } else {
+        document.getElementById('moraleCheckResult').textContent = `Morale sufficient (${battleState.morale.toFixed(2)} ≥ ${encounter.minMorale}). Proceeding to combat.`;
+        document.getElementById('retireDetails').style.display = 'none';
+        document.getElementById('proceedMoraleButton').textContent = 'Proceed';
+        battleState.retiredLastTurn = false; // Reset flag if not retiring
+    }
+}
+
+// Proceed after morale check, ending turn or battle if retired
+function proceedAfterMoraleCheck() {
+    const encounter = battleState.encounters[battleState.currentTurn - 1];
+    if (battleState.morale < encounter.minMorale) {
+        battleState.currentTurn++;
+        if (battleState.currentTurn <= battleState.maxTurns) {
+            updateTurnDisplay();
+            document.getElementById('step10').style.display = 'none';
+            document.getElementById('step8').style.display = 'block';
+        } else {
+            endBattle();
+        }
+    } else {
+        nextStep(10);
+    }
+}
+
+// Display posture selection dropdowns
+function displayPostureInputs() {
+    const isFirstTurn = battleState.currentTurn === 1;
+    const postureOptions = isFirstTurn
+        ? `
+            <option value="valorous">Valorous (2 rounds, check Valorous)</option>
+            <option value="reckless">Reckless (3 rounds, check Reckless, +1d3 Morale)</option>
+        `
+        : `
+            <option value="valorous">Valorous (2 rounds, check Valorous)</option>
+            <option value="reckless">Reckless (3 rounds, check Reckless, +1d3 Morale)</option>
+            <option value="prudent">Prudent (1 round, check Prudent, -1d3 Morale)</option>
+            <option value="cowardly">Cowardly (Retire, -1d6 Morale)</option>
+        `;
+    const inputs = battleState.playerKnights.map(knight => `
+        <div class="posture-entry">
+            <p>${knight.name}</p>
+            <input type="hidden" name="knightName" value="${knight.name}">
+            <p>Posture: <select name="posture" onchange="updateCombatRounds(this)">${postureOptions}</select></p>
+            <p>Combat Rounds: <input type="number" name="combatRounds" value="${isFirstTurn ? 2 : 2}" readonly></p>
+            ${isFirstTurn ? '<p><strong>Note:</strong> First Battle Turn requires a Mounted Charge (Starter Set, Appendix B, p. 3).</p>' : ''}
+        </div>
+    `).join('');
+    document.getElementById('postureInputs').innerHTML = inputs;
+}
+
+// Update combat rounds based on selected posture
+function updateCombatRounds(selectElement) {
+    const posture = selectElement.value;
+    const roundsInput = selectElement.closest('.posture-entry').querySelector('input[name="combatRounds"]');
+    if (posture === 'valorous') {
+        roundsInput.value = 2;
+    } else if (posture === 'reckless') {
+        roundsInput.value = 3;
+    } else if (posture === 'prudent') {
+        roundsInput.value = 1;
+    } else if (posture === 'cowardly') {
+        roundsInput.value = 0;
+    }
+}
+
+// Validate posture selections
+function validatePostures() {
+    const entries = document.querySelectorAll('.posture-entry');
+    for (let entry of entries) {
+        const postureSelect = entry.querySelector('select[name="posture"]');
+        const roundsInput = entry.querySelector('input[name="combatRounds"]');
+        if (!postureSelect || !roundsInput) {
+            alert('Missing posture or combat rounds input for a knight.');
+            return false;
+        }
+    }
+    return true;
+}
+
+// Save posture selections and update Battle Report
+function savePostures() {
+    const entries = document.querySelectorAll('.posture-entry');
+    battleState.postures = Array.from(entries).map(entry => {
+        const knightName = entry.querySelector('input[name="knightName"]').value;
+        const posture = entry.querySelector('select[name="posture"]').value;
+        const combatRounds = parseInt(entry.querySelector('input[name="combatRounds"]').value);
+        return { knight: battleState.playerKnights.find(k => k.name === knightName), posture, combatRounds };
+    });
+    battleState.combatRounds = Math.max(...battleState.postures.map(p => p.combatRounds));
+
+    // Update Battle Report with postures and combat rounds
+    const posturesText = battleState.postures.map(p => `${p.knight.name} (${p.posture})`).join(', ');
+    document.getElementById(`posturesDisplay${battleState.currentTurn}`).textContent = posturesText;
+    document.getElementById(`combatRoundsDisplay${battleState.currentTurn}`).textContent = battleState.combatRounds;
+
+    let moraleChange = 0;
+    for (const { posture } of battleState.postures) {
+        if (posture === 'reckless') {
+            const moraleGain = Math.floor(Math.random() * 3) + 1; // Simulate 1d3
+            moraleChange += moraleGain;
+        } else if (posture === 'prudent') {
+            const moraleLoss = Math.floor(Math.random() * 3) + 1; // Simulate 1d3
+            moraleChange -= moraleLoss;
+        } else if (posture === 'cowardly') {
+            const moraleLoss = Math.floor(Math.random() * 6) + 1; // Simulate 1d6
+            moraleChange -= moraleLoss;
+        }
+    }
+    battleState.morale += moraleChange;
+    if (battleState.morale > battleState.maxMorale) battleState.morale = battleState.maxMorale;
+    if (battleState.morale < 0) battleState.morale = 0;
+    document.getElementById('currentMoraleDisplay').textContent = battleState.morale.toFixed(2);
+}
+
+// Display combat result inputs
+function displayCombatInputs() {
+    const encounter = battleState.encounters[battleState.currentTurn - 1];
+    const inputs = battleState.playerKnights.map(knight => `
+        <p>${knight.name} - Foes Defeated (Glory: ${encounter.gloryAward} each):</p>
+        <input type="number" id="foesDefeated_${knight.name}" min="0" value="0">
+    `).join('');
+    document.getElementById('combatInputs').innerHTML = inputs;
+}
+
+// Validate combat results
+function validateCombatResults() {
+    const entries = document.querySelectorAll('#combatInputs input');
+    for (let entry of entries) {
+        const foesDefeated = parseInt(entry.value);
+        if (isNaN(foesDefeated) || foesDefeated < 0) {
+            alert('Foes Defeated must be a non-negative number for each knight.');
+            return false;
+        }
+    }
+    return true;
+}
+
+// Calculate combat results and update Battle Report
+function calculateCombatResults() {
+    const encounter = battleState.encounters[battleState.currentTurn - 1];
+    const entries = document.querySelectorAll('#combatInputs input');
+    let totalFoesDefeated = 0;
+    const updates = [];
+
+    if (battleState.currentTurn === 1) {
+        battleState.firstTurnParticipants = battleState.postures
+            .filter(p => p.posture !== 'cowardly')
+            .map(p => p.knight.name);
+    }
+
+    entries.forEach(entry => {
+        const knightName = entry.id.replace('foesDefeated_', '');
+        const foesDefeated = parseInt(entry.value) || 0;
+        totalFoesDefeated += foesDefeated;
+        const gloryGained = foesDefeated * encounter.gloryAward;
+        const knight = battleState.playerKnights.find(k => k.name === knightName);
+        updates.push({ knight, foesDefeated, gloryGained });
+
+        if (!battleState.gloryHistory[knightName]) {
+            battleState.gloryHistory[knightName] = [];
+        }
+        battleState.gloryHistory[knightName].push({
+            turn: battleState.currentTurn,
+            glory: gloryGained,
+            source: `Foes Defeated (Turn ${battleState.currentTurn})`
+        });
+    });
+
+    const kvTotal = totalFoesDefeated * encounter.kv;
+    const moraleGain = Math.floor(kvTotal / 2) * 2;
+    battleState.morale += moraleGain;
+    if (battleState.morale > battleState.maxMorale) battleState.morale = battleState.maxMorale;
+
+    let moraleLoss = 0;
+    const diceMatch = encounter.moraleLoss.match(/(\d+)d(\d+)(?:\+(\d+))?/);
+    if (diceMatch) {
+        const numDice = parseInt(diceMatch[1]);
+        const dieSize = parseInt(diceMatch[2]);
+        const modifier = parseInt(diceMatch[3] || 0);
+        for (let i = 0; i < numDice; i++) {
+            moraleLoss += Math.floor(Math.random() * dieSize) + 1;
+        }
+        moraleLoss += modifier;
+    }
+    battleState.morale -= moraleLoss;
+    if (battleState.morale < 0) battleState.morale = 0;
+    document.getElementById('currentMoraleDisplay').textContent = battleState.morale.toFixed(2);
+
+    const glorySummary = updates.map(update => 
+        `<p>${update.knight.name}: ${update.foesDefeated} foes defeated, +${update.gloryGained} Glory</p>`
+    ).join('');
+    const turnSummary = `
+        <h3>Combat Results</h3>
+        <p><strong>Total Foes Defeated:</strong> ${totalFoesDefeated}</p>
+        <p><strong>Morale Gained:</strong> +${moraleGain} (total: ${battleState.morale.toFixed(2)})</p>
+        <p><strong>Glory Awarded:</strong></p>
+        ${glorySummary}
+    `;
+    document.getElementById('turnSummary').innerHTML = turnSummary;
+    appendEncounterResult(turnSummary);
+
+    const turnsRemaining = battleState.maxTurns - battleState.currentTurn;
+    document.getElementById('turnsRemaining').textContent = turnsRemaining;
+    if (turnsRemaining <= 0) {
+        document.getElementById('nextTurnButton').style.display = 'none';
+        document.getElementById('endBattleButton').style.display = 'block';
+    } else {
+        document.getElementById('nextTurnButton').style.display = 'block';
+        document.getElementById('endBattleButton').style.display = 'none';
+    }
+    battleState.retiredLastTurn = false; // Reset flag after combat
+}
+
+// Append content to the Battle Report section
+function appendEncounterResult(content) {
+    const resultsDiv = document.getElementById('encounterResults');
+    resultsDiv.innerHTML += content;
+}
+
+// Proceed to the next turn
+function proceedToNextTurn() {
+    try {
+        console.log(`Proceeding to next turn from Turn ${battleState.currentTurn}`);
+        battleState.currentTurn++;
+        if (battleState.currentTurn <= battleState.maxTurns) {
+            updateTurnDisplay();
+            document.getElementById('step13').style.display = 'none';
+            document.getElementById('step8').style.display = 'block';
+        } else {
+            endBattle();
+        }
+        console.log(`Proceeded to Turn ${battleState.currentTurn}`);
+    } catch (err) {
+        console.error('Error in proceedToNextTurn:', err);
+        alert('An error occurred while proceeding to the next turn.');
+    }
+}
+
+// End the battle and display final summary
+function endBattle() {
+    const gloryBreakdown = battleState.playerKnights.map(knight => {
+        const history = battleState.gloryHistory[knight.name] || [];
+        const foeGlory = history.reduce((sum, entry) => sum + entry.glory, 0);
+        const participatedInFirstTurn = battleState.firstTurnParticipants.includes(knight.name);
+        const totalGlory = foeGlory;
+        const foeGloryBreakdown = history.length > 0
+            ? history.map(entry => `<p>Turn ${entry.turn}: +${entry.glory} (${entry.source})</p>`).join('')
+            : '<p>None</p>';
+        return `
+            <p><strong>${knight.name}:</strong> Total Glory Gained: ${totalGlory}</p>
+            <p><strong>Breakdown:</strong></p>
+            <p>Foes Defeated:</p>
+            ${foeGloryBreakdown}
+            <p>Battle Outcome Glory: +0 (Award based on scenario outcome; Starter Set, Appendix B, p. 7)</p>
+        `;
+    }).join('');
+    const finalSummary = `
+        <h2>Battle Concluded</h2>
+        <p>Battle ended after ${battleState.maxTurns} turns.</p>
+        <p><strong>Final Conroi Morale:</strong> ${battleState.morale.toFixed(2)}</p>
+        <p><strong>Total Glory Breakdown:</strong></p>
+        ${gloryBreakdown}
+        <p>Calculate additional Glory and plunder per scenario (Starter Set, Appendix B, p. 7).</p>
+    `;
+    appendEncounterResult(finalSummary);
+    document.getElementById('step13').style.display = 'none';
+}
+
+// Event listeners for dynamic UI elements
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('step9').addEventListener('change', function(e) {
+        if (e.target.id === 'changeEncounter') {
+            document.getElementById('newEncounterDetails').style.display = e.target.checked ? 'block' : 'none';
+        }
+        if (e.target.id === 'changeEncounterHarder') {
+            document.getElementById('newEncounterDetailsHarder').style.display = e.target.checked ? 'block' : 'none';
+        }
+    });
+
+    // Add event listener for the "Proceed to Next Turn" button
+    document.getElementById('nextTurnButton').addEventListener('click', () => {
+        nextStep(13);
+    });
+});
+</script>
